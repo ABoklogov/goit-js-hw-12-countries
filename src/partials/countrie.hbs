@@ -1,0 +1,19 @@
+<div class="box-countrie">
+    <h1 class="countrie">{{name}}</h1>
+    
+    <div class="information">
+        <div class="sub-information">
+            <p class="paragraph">Столица: {{capital}}</p>
+            <p class="paragraph">Население: {{population}}</p>
+            <p class="paragraph">Языки: </p>
+            <ul class="list-languages">
+                {{#each languages}}
+                <li class="subparagraph">{{name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    
+        <img class="flag" src="{{flag}}" alt="{{name}}">
+    </div>
+</div>
+    
