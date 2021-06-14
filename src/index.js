@@ -41,7 +41,7 @@ function renderCountrieCard(countrie) {
     } else if (countrie.length === 1) {
 
         if (refs.listContainer.firstChild) {
-                document.querySelector('.list-countries').remove();
+                refs.listContainer.innerHTML = '';
             };
             
         refs.cardContainer.insertAdjacentHTML('beforeend', countriesCard(countrie[0]));
