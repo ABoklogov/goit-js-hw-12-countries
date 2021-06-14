@@ -2,6 +2,7 @@ import { notice, info, success, error } from '@pnotify/core';
 import debounce from 'lodash.debounce';
 import countriesCard from './partials/countrie.hbs';
 import countriesList from './partials/countries.hbs';
+import CountriesApiService from './js/components/fetchCountries.js';
 
 const refs = {
     cardContainer: document.querySelector('.card-container'),
@@ -9,25 +10,16 @@ const refs = {
     listContainer: document.querySelector('#list-container'),
 };
 
+const countriesApiService = new CountriesApiService();
+
 refs.inputCountriesEl.addEventListener('input', debounce(onCountiesInput, 500));
 
-function onCountiesInput() {
-    const input = refs.inputCountriesEl.value;
+function onCountiesInput(e) {
+    const searchQuery = e.target.value;
 
-    fetchCountrieByName(input)
+    countriesApiService.fetchCountries(searchQuery)
     .then(renderCountrieCard)
     .catch(onFatchError);
-};
-
-function fetchCountrieByName(countrieName) {
-    const url = `https://restcountries.eu/rest/v2/name/${countrieName}`;
-
-   return fetch(url)
-       .then(response => {
-           if (response.ok) {
-               return response.json()
-           };
-       })
 };
 
 function renderCountrieCard(countrie) {
