@@ -5,8 +5,8 @@ import countriesList from './partials/countries.hbs';
 import CountriesApiService from './js/components/fetchCountries.js';
 
 const refs = {
-    cardContainer: document.querySelector('.card-container'),
     inputCountriesEl: document.querySelector('[name="countries"]'),
+    cardContainer: document.querySelector('.card-container'),
     listContainer: document.querySelector('#list-container'),
 };
 
@@ -24,14 +24,9 @@ function onCountiesInput(e) {
 
 function renderCountrieCard(countrie) {
     if (countrie.length > 10) {
-        
-        if (refs.listContainer.firstChild) {
-            document.querySelector('.list-countries').remove();
-            
-        } else if (refs.cardContainer.firstChild) {
-            document.querySelector('.box-countrie').remove();
-        };
 
+        removeCardEntListCountries();
+        
         info({
             text: "Найдено слишком много совпадений. Пожалуйста, введите более конкретный запрос!"
         });
@@ -39,18 +34,14 @@ function renderCountrieCard(countrie) {
         console.log(countrie.length);
     } else if (countrie.length >= 2 && countrie.length <= 10) {
 
-        if (refs.listContainer.firstChild) {
-            document.querySelector('.list-countries').remove();
-
-        } else if (refs.cardContainer.firstChild) {
-             document.querySelector('.box-countrie').remove();
-        };
+        removeCardEntListCountries();
         
         const countriesMarkup = countriesList(countrie);
         refs.listContainer.innerHTML = countriesMarkup;
         
         console.log(countrie.length);
     } else if (countrie.length === 1) {
+        
         if (refs.listContainer.firstChild) {
                 document.querySelector('.list-countries').remove();
             };
@@ -62,4 +53,12 @@ function renderCountrieCard(countrie) {
 
 function onFatchError(error) {
     alert('Страна не найдена! Введите валидную строку!');
+};
+
+function removeCardEntListCountries() {
+    if (refs.listContainer.firstChild) {
+        refs.listContainer.innerHTML = '';
+    } else if (refs.cardContainer.firstChild) {
+        refs.cardContainer.innerHTML = '';
+    };
 };
