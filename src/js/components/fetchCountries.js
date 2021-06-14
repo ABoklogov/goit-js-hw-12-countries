@@ -1,14 +1,22 @@
 export default class CountriesApiService {
-    constructor() { }
+    constructor() {
+        this.searchQuery = '';
+    }
     
-    fetchCountries(countrieName) {
-    const url = `https://restcountries.eu/rest/v2/name/${countrieName}`;
+    fetchCountries() {
+    const url = `https://restcountries.eu/rest/v2/name/${this.searchQuery}`;
 
-   return fetch(url)
-       .then(response => {
-           if (response.ok) {
-               return response.json()
-           };
-       })
-};
+    return fetch(url)
+        .then(response => {
+            return response.json()    
+        })
+    };
+
+    get query() {
+        return this.searchQuery;
+    };
+
+    set query(newQuery) {
+        this.searchQuery = newQuery;
+    };
 }

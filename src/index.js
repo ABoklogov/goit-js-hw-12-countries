@@ -15,9 +15,10 @@ const countriesApiService = new CountriesApiService();
 refs.inputCountriesEl.addEventListener('input', debounce(onCountiesInput, 500));
 
 function onCountiesInput(e) {
-    const searchQuery = e.target.value;
+    
+    countriesApiService.query = e.target.value;
 
-    countriesApiService.fetchCountries(searchQuery)
+    countriesApiService.fetchCountries()
     .then(renderCountrieCard)
     .catch(onFatchError);
 };
@@ -25,29 +26,25 @@ function onCountiesInput(e) {
 function renderCountrieCard(countrie) {
     if (countrie.length > 10) {
 
-        removeCardEntListCountries();
+        removeCardAndListCountries();
         
         info({
             text: "Найдено слишком много совпадений. Пожалуйста, введите более конкретный запрос!"
         });
        
-        console.log(countrie.length);
     } else if (countrie.length >= 2 && countrie.length <= 10) {
 
-        removeCardEntListCountries();
+        removeCardAndListCountries();
         
-        const countriesMarkup = countriesList(countrie);
-        refs.listContainer.innerHTML = countriesMarkup;
+        refs.listContainer.insertAdjacentHTML('beforeend', countriesList(countrie));
         
-        console.log(countrie.length);
     } else if (countrie.length === 1) {
-        
+
         if (refs.listContainer.firstChild) {
                 document.querySelector('.list-countries').remove();
             };
             
-        const oneCountrieMarkup = countriesCard(countrie[0]);
-        refs.cardContainer.innerHTML = oneCountrieMarkup;
+        refs.cardContainer.insertAdjacentHTML('beforeend', countriesCard(countrie[0]));
     }
 };
 
@@ -55,7 +52,7 @@ function onFatchError(error) {
     alert('Страна не найдена! Введите валидную строку!');
 };
 
-function removeCardEntListCountries() {
+function removeCardAndListCountries() {
     if (refs.listContainer.firstChild) {
         refs.listContainer.innerHTML = '';
     } else if (refs.cardContainer.firstChild) {
