@@ -43,6 +43,8 @@
   letter-spacing: 0.03em;
 }
 
-.list-countries {
-  margin-left: 750px;
+#list-container {
+  display: inline-flex;
+  margin-left: auto;
+  margin-right: auto;
 }

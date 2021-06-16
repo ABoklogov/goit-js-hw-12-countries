@@ -1,8 +1,12 @@
 import { notice, info, success, error } from '@pnotify/core';
+import '@pnotify/core/dist/BrightTheme.css';
+import '@pnotify/core/dist/Material.css';
+
+
 import debounce from 'lodash.debounce';
 import countriesCard from './partials/countrie.hbs';
 import countriesList from './partials/countries.hbs';
-import CountriesApiService from './js/components/fetchCountries.js';
+import CountriesApiService from './js/fetchCountries.js';
 
 const refs = {
     inputCountriesEl: document.querySelector('[name="countries"]'),
@@ -16,7 +20,8 @@ refs.inputCountriesEl.addEventListener('input', debounce(onCountiesInput, 500));
 
 function onCountiesInput(e) {
     
-    countriesApiService.query = e.target.value;
+    countriesApiService.query = e.target.value.trim();
+    removeCardAndListCountries();
 
     countriesApiService.fetchCountries()
     .then(renderCountrieCard)
@@ -26,15 +31,11 @@ function onCountiesInput(e) {
 function renderCountrieCard(countrie) {
     if (countrie.length > 10) {
 
-        removeCardAndListCountries();
-        
         info({
             text: "Найдено слишком много совпадений. Пожалуйста, введите более конкретный запрос!"
         });
        
     } else if (countrie.length >= 2 && countrie.length <= 10) {
-
-        removeCardAndListCountries();
         
         refs.listContainer.insertAdjacentHTML('beforeend', countriesList(countrie));
         
@@ -48,9 +49,12 @@ function renderCountrieCard(countrie) {
     }
 };
 
-function onFatchError(error) {
-    alert('Страна не найдена! Введите валидную строку!');
-};
+function onFatchError(er) {
+    alert(er)
+    // error({
+    //     text: "Ошибка!!"
+    //     });
+    };
 
 function removeCardAndListCountries() {
     if (refs.listContainer.firstChild) {

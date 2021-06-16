@@ -8,8 +8,15 @@ export default class CountriesApiService {
 
     return fetch(url)
         .then(response => {
+            if (!response.ok) {
+                return { error: 'Что-то пошло не так' };
+           }
             return response.json()    
         })
+            .then(data => {
+                if(data.error) return console.log(data.error);
+                console.log('ошибки нет', data);
+            })
     };
 
     get query() {
