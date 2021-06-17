@@ -2,7 +2,6 @@ import { notice, info, success, error } from '@pnotify/core';
 import '@pnotify/core/dist/BrightTheme.css';
 import '@pnotify/core/dist/Material.css';
 
-
 import debounce from 'lodash.debounce';
 import countriesCard from './partials/countrie.hbs';
 import countriesList from './partials/countries.hbs';
@@ -24,6 +23,7 @@ function onCountiesInput(e) {
     removeCardAndListCountries();
 
     countriesApiService.fetchCountries()
+    .then(errorHandling)
     .then(renderCountrieCard)
     .catch(onFatchError);
 };
@@ -49,11 +49,8 @@ function renderCountrieCard(countrie) {
     }
 };
 
-function onFatchError() {
-   
-    // error({
-    //     text: "ОШИБКА!!! Что-то пошло не так!"
-    //     });
+function onFatchError(error) {
+    alert(error);
     };
 
 function removeCardAndListCountries() {
@@ -62,4 +59,11 @@ function removeCardAndListCountries() {
     } else if (refs.cardContainer.firstChild) {
         refs.cardContainer.innerHTML = '';
     };
+};
+
+function errorHandling(data) {
+        if (data.error) {
+            error({ text: data.error });
+        }
+    return data;
 };

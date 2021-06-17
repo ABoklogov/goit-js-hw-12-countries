@@ -1,7 +1,3 @@
-import { notice, info, success, error } from '@pnotify/core';
-import '@pnotify/core/dist/BrightTheme.css';
-import '@pnotify/core/dist/Material.css';
-        
 export default class CountriesApiService {
     constructor() {
         this.searchQuery = '';
@@ -12,20 +8,11 @@ export default class CountriesApiService {
 
     return fetch(url)
         .then(response => {
-        //    console.log(response);
-            if (response.status == 404) {
-                error({
-                text: "Ошибка! Страна не найдена."
-                });
-                // return { error: 'Что-то пошло не так' };
-           }
-            return response.json()    
+        if (!response.ok) {
+            return { error: 'Ошибка! Страна не найдена' };
+            }
+            return response.json();
         })
-        // .then(data => {
-        //     if (data.error) return console.log('у нас ошибка' + data.error);
-        
-        //     return data
-        // })
     };
 
     get query() {
