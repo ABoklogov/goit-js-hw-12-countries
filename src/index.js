@@ -49,10 +49,10 @@ function renderCountrieCard(countrie) {
     }
 };
 
-function onFatchError(er) {
-    alert(er)
+function onFatchError() {
+   
     // error({
-    //     text: "Ошибка!!"
+    //     text: "ОШИБКА!!! Что-то пошло не так!"
     //     });
     };
 
