@@ -67,3 +67,36 @@ function errorHandling(data) {
         }
     return data;
 };
+
+// fetchCountries() {
+//   const url = `https://restcountries.eu/rest/v2/name/${this.searchQuery}`;
+//   return fetch(url).then(response => response.ok ? response.json() : response);
+// };
+// function onCountiesInput(e) {
+//     countriesApiService.query = e.target.value.trim();
+//     removeCardAndListCountries();
+//     if (!countriesApiService.query) return;
+//     countriesApiService.fetchCountries()
+//       .then(renderCountrieCard)
+//       .catch(onFatchError);
+// };
+// function renderCountrieCard(countrie) {
+//   removeCardAndListCountries();
+//   if (countrie.length > 10) {
+//  return info({ text: "Найдено слишком много совпадений. Пожалуйста, введите более конкретный запрос!" });
+//   }
+//   if (countrie.length >= 2 && countrie.length <= 10) {
+//     return refs.listContainer.insertAdjacentHTML('beforeend', countriesList(countrie));
+//   }
+//   if (countrie.length === 1) {
+//      return refs.cardContainer.insertAdjacentHTML('beforeend', countriesCard(countrie[0]));
+//   }
+//   error({ text: "Страна не найдена." });
+// };
+// function onFatchError(err) {
+//   error({ text: err });
+// };
+// function removeCardAndListCountries() {
+//   refs.listContainer.innerHTML = '';
+//   refs.cardContainer.innerHTML = '';
+// };
